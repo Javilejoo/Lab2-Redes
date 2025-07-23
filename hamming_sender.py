@@ -36,11 +36,12 @@ def hamming_sender():
             # Calcular el valor del bit de paridad
             paridad = 0
             for j in range(1, n + 1):
-                if (j & (i + 1)) != 0:
+                if (j & (i + 1)) != 0 and mensaje_completo[j-1] != 'p':
                     paridad ^= int(mensaje_completo[j - 1])
             mensaje_completo[i] = str(paridad)
 
-    print(f"Mensaje completo final: {mensaje_completo[::-1]}")
+        print(f"Mensaje codificado listo para enviar: {''.join(mensaje_completo[::-1])}")
+
 
 hamming_sender()
 

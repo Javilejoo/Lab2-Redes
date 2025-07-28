@@ -59,18 +59,16 @@ def crc32_sender(message_bits):
     Returns:
         str: Mensaje + CRC-32 en binario
     """
-    print(f"=== CRC-32 EMISOR ===")
+    print(f"--------------CRC-32 EMISOR--------------")
     print(f"Mensaje original: {message_bits}")
     print(f"Longitud del mensaje: {len(message_bits)} bits")
     
-    # Asegurar que el mensaje tenga al menos 32 bits
-    if len(message_bits) < 32:
-        padding_needed = 32 - len(message_bits)
-        message_bits = '0' * padding_needed + message_bits
-        print(f"Mensaje con padding: {message_bits}")
+    # Para CRC-32, necesitamos añadir 32 ceros al mensaje para el cálculo
+    message_with_zeros = message_bits + '0' * 32
+    print(f"Mensaje con 32 ceros: {message_with_zeros}")
     
     # Calcular CRC-32
-    crc_value = calculate_crc32(message_bits)
+    crc_value = calculate_crc32(message_with_zeros)
     crc_bits = format(crc_value, '032b')  # CRC-32 siempre 32 bits
     
     # Mensaje final: datos originales + CRC-32
@@ -85,7 +83,7 @@ def crc32_sender(message_bits):
 
 def main():
     """Función principal para probar el emisor CRC-32"""
-    print("=== EMISOR CRC-32 ===")
+    print("--------------EMISOR CRC-32--------------")
     
     while True:
         try:
@@ -105,7 +103,7 @@ def main():
             
             # Procesar con CRC-32
             result = crc32_sender(message)
-            print(f"\n>>> RESULTADO FINAL: {result}")
+            print(f"\nRESULTADO FINAL: {result}")
             
         except KeyboardInterrupt:
             print("\nSaliendo...")

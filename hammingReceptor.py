@@ -23,7 +23,7 @@ def hamming_receiver(received_code):
     Returns:
         dict: Resultado del procesamiento
     """
-    print("=== CÓDIGO DE HAMMING RECEPTOR ===")
+    print("--------------CÓDIGO DE HAMMING RECEPTOR--------------")
     print(f"Código recibido: {received_code}")
     print(f"Longitud recibida: {len(received_code)} bits")
     
@@ -66,7 +66,7 @@ def hamming_receiver(received_code):
     
     # Determinar resultado
     if error_position == 0:
-        print("✅ RESULTADO: No se detectaron errores")
+        print("RESULTADO: No se detectaron errores")
         
         # Extraer datos originales (posiciones que no son potencias de 2)
         original_data = ""
@@ -84,7 +84,7 @@ def hamming_receiver(received_code):
         }
     
     else:
-        print(f"🔧 RESULTADO: Error detectado y corregido en posición {error_position}")
+        print(f"RESULTADO: Error detectado y corregido en posición {error_position}")
         
         # Corregir el error
         original_bit = hamming_array[error_position]
@@ -113,7 +113,7 @@ def hamming_receiver(received_code):
 
 def main():
     """Función principal para probar el receptor Hamming"""
-    print("=== RECEPTOR CÓDIGO DE HAMMING ===")
+    print("--------------RECEPTOR CÓDIGO DE HAMMING--------------")
     
     while True:
         try:

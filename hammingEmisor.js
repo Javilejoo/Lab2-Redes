@@ -29,7 +29,7 @@ function isPowerOfTwo(n) {
  * Emisor de Hamming: Codifica el mensaje con bits de paridad
  */
 function hammingSender(dataBits) {
-    console.log("=== CÓDIGO DE HAMMING EMISOR ===");
+    console.log("--------------CÓDIGO DE HAMMING EMISOR--------------");
     console.log(`Mensaje original: ${dataBits}`);
     console.log(`Longitud del mensaje: ${dataBits.length} bits`);
     
@@ -106,7 +106,7 @@ function main() {
         output: process.stdout
     });
     
-    console.log("=== EMISOR CÓDIGO DE HAMMING ===");
+    console.log("--------------EMISOR CÓDIGO DE HAMMING--------------");
     
     function askForInput() {
         rl.question("\nIngrese la trama en binario (o 'quit' para salir): ", (input) => {
@@ -133,7 +133,7 @@ function main() {
             try {
                 // Procesar con Hamming
                 const result = hammingSender(message);
-                console.log(`\n>>> RESULTADO FINAL: ${result}`);
+                console.log(`\n RESULTADO FINAL: ${result}`);
                 console.log("=".repeat(50));
                 
                 askForInput();

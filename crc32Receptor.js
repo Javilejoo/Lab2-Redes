@@ -61,7 +61,7 @@ function calculateCRC32(dataBits) {
  * Receptor CRC-32: Verifica la integridad del mensaje
  */
 function crc32Receiver(receivedMessage) {
-    console.log("=== CRC-32 RECEPTOR ===");
+    console.log("--------------CRC-32 RECEPTOR--------------");
     console.log(`Mensaje recibido: ${receivedMessage}`);
     console.log(`Longitud recibida: ${receivedMessage.length} bits`);
     
@@ -70,7 +70,7 @@ function crc32Receiver(receivedMessage) {
         return;
     }
     
-    // Separar datos y CRC-32
+    // Separar datos y CRC-32 para mostrar información
     const dataLength = receivedMessage.length - 32;
     const dataPart = receivedMessage.substr(0, dataLength);
     const receivedCRC = receivedMessage.substr(dataLength, 32);
@@ -78,16 +78,22 @@ function crc32Receiver(receivedMessage) {
     console.log(`Datos extraídos: ${dataPart}`);
     console.log(`CRC-32 recibido: ${receivedCRC}`);
     
-    // Calcular CRC-32 de los datos
-    const calculatedCRC = calculateCRC32(dataPart);
+    // Para verificar: calculamos el CRC del mensaje completo
+    // Si el mensaje no tiene errores, el resultado debería ser 0
+    const verificationCRC = calculateCRC32(receivedMessage);
+    console.log(`CRC de verificación: ${verificationCRC} (decimal)`);
+    
+    // Alternativamente, podemos comparar el CRC recibido con el calculado de los datos
+    const calculatedCRC = calculateCRC32(dataPart + '0'.repeat(32));
     const calculatedCRCBits = calculatedCRC.toString(2).padStart(32, '0');
+    console.log(`CRC calculado: ${calculatedCRCBits}`);
     
-    console.log(`CRC-32 calculado: ${calculatedCRC} (decimal)`);
-    console.log(`CRC-32 calculado: ${calculatedCRCBits} (binario)`);
+    // Verificar si hay errores (dos métodos)
+    const method1 = (verificationCRC === 0);
+    const method2 = (receivedCRC === calculatedCRCBits);
     
-    // Comparar CRCs
-    if (receivedCRC === calculatedCRCBits) {
-        console.log("✅ RESULTADO: No se detectaron errores");
+    if (method2) {
+        console.log("RESULTADO: No se detectaron errores");
         console.log(`Trama original: ${dataPart}`);
         return {
             status: "success",
@@ -95,7 +101,7 @@ function crc32Receiver(receivedMessage) {
             error: false
         };
     } else {
-        console.log("❌ RESULTADO: Se detectaron errores - Trama descartada");
+        console.log("RESULTADO: Se detectaron errores - Trama descartada");
         console.log("El CRC-32 recibido no coincide con el calculado");
         return {
             status: "error",
